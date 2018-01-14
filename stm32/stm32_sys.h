@@ -13,5 +13,6 @@
 #include "stm32_sys_rcode_code.h"
 #include "stm32_sys_utils.h"
 #include "stm32_sys_types.h"
+#include "stm32_sys_timer.h"
 
 #endif /* STM32_SYS_H_ */
