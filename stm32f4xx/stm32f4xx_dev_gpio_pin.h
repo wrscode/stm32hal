@@ -17,7 +17,7 @@ namespace Stm32f4xx
 {
 namespace Device
 {
-template<char Letter, size_t PinNr, Stm32::Device::IPin::ActiveState AState = Stm32::Device::IPin::ActiveState::Normal>
+template<char Letter, size_t PinNr, Stm32::Device::IPin::ActiveStateEnum AState = Stm32::Device::IPin::ActiveStateEnum::Normal>
 struct Pin: public Stm32::Device::IPin
 {
     enum
@@ -69,25 +69,25 @@ public:
         return this;
     }
 
-    virtual Stm32::Device::IPin* open(const Stm32::Device::IPin::Config Config, Stm32::System::RetCode::Code& Code)
+    virtual Stm32::Device::IPin* open(const Stm32::Device::IPin::SettingsEnum Config, Stm32::System::RetCode::Code& Code)
     {
         Rcc::Gpio<Letter>::setClock(Stm32::System::State::Enable);
 
-        mBBInstance->mode[Pin2xBit00] = (Config && Stm32::Device::IPin::Config::ModeBit00) ? 0x01U : 0x00U;
-        mBBInstance->mode[Pin2xBit01] = (Config && Stm32::Device::IPin::Config::ModeBit01) ? 0x01U : 0x00U;
+        mBBInstance->mode[Pin2xBit00] = (Config && Stm32::Device::IPin::SettingsEnum::ModeBit00) ? 0x01U : 0x00U;
+        mBBInstance->mode[Pin2xBit01] = (Config && Stm32::Device::IPin::SettingsEnum::ModeBit01) ? 0x01U : 0x00U;
 
-        mBBInstance->alt[Pin4xBit00] = (Config && Stm32::Device::IPin::Config::ModeBit04) ? 0x01U : 0x00U;
-        mBBInstance->alt[Pin4xBit01] = (Config && Stm32::Device::IPin::Config::ModeBit05) ? 0x01U : 0x00U;
-        mBBInstance->alt[Pin4xBit02] = (Config && Stm32::Device::IPin::Config::ModeBit06) ? 0x01U : 0x00U;
-        mBBInstance->alt[Pin4xBit03] = (Config && Stm32::Device::IPin::Config::ModeBit07) ? 0x01U : 0x00U;
+        mBBInstance->alt[Pin4xBit00] = (Config && Stm32::Device::IPin::SettingsEnum::ModeBit04) ? 0x01U : 0x00U;
+        mBBInstance->alt[Pin4xBit01] = (Config && Stm32::Device::IPin::SettingsEnum::ModeBit05) ? 0x01U : 0x00U;
+        mBBInstance->alt[Pin4xBit02] = (Config && Stm32::Device::IPin::SettingsEnum::ModeBit06) ? 0x01U : 0x00U;
+        mBBInstance->alt[Pin4xBit03] = (Config && Stm32::Device::IPin::SettingsEnum::ModeBit07) ? 0x01U : 0x00U;
 
-        mBBInstance->speed[Pin2xBit00] = (Config && Stm32::Device::IPin::Config::SpeedBit00) ? 0x01U : 0x00U;
-        mBBInstance->speed[Pin2xBit01] = (Config && Stm32::Device::IPin::Config::SpeedBit01) ? 0x01U : 0x00U;
+        mBBInstance->speed[Pin2xBit00] = (Config && Stm32::Device::IPin::SettingsEnum::SpeedBit00) ? 0x01U : 0x00U;
+        mBBInstance->speed[Pin2xBit01] = (Config && Stm32::Device::IPin::SettingsEnum::SpeedBit01) ? 0x01U : 0x00U;
 
-        mBBInstance->otype[Pin1xBit00] = (Config && Stm32::Device::IPin::Config::OTypeBit00) ? 0x01U : 0x00U;
+        mBBInstance->otype[Pin1xBit00] = (Config && Stm32::Device::IPin::SettingsEnum::OTypeBit00) ? 0x01U : 0x00U;
 
-        mBBInstance->pull[Pin2xBit00] = (Config && Stm32::Device::IPin::Config::PullBit00) ? 0x01U : 0x00U;
-        mBBInstance->pull[Pin2xBit01] = (Config && Stm32::Device::IPin::Config::PullBit01) ? 0x01U : 0x00U;
+        mBBInstance->pull[Pin2xBit00] = (Config && Stm32::Device::IPin::SettingsEnum::PullBit00) ? 0x01U : 0x00U;
+        mBBInstance->pull[Pin2xBit01] = (Config && Stm32::Device::IPin::SettingsEnum::PullBit01) ? 0x01U : 0x00U;
 
         return this;
     }
@@ -100,7 +100,7 @@ public:
 
     inline virtual void setState(Stm32::System::State State)
     {
-        if (AState == Stm32::Device::IPin::ActiveState::Normal)
+        if (AState == Stm32::Device::IPin::ActiveStateEnum::Normal)
         {
             if (State != Stm32::System::State::Disable)
             {
@@ -123,7 +123,7 @@ public:
 
     inline virtual bool getState()
     {
-        if (AState == Stm32::Device::IPin::ActiveState::Normal)
+        if (AState == Stm32::Device::IPin::ActiveStateEnum::Normal)
         {
             return mBBInstance->idr[Pin1xBit00];
         } else
@@ -134,7 +134,7 @@ public:
 
     inline virtual void setHigh()
     {
-        if (AState == Stm32::Device::IPin::ActiveState::Normal)
+        if (AState == Stm32::Device::IPin::ActiveStateEnum::Normal)
         {
             mBBInstance->bsr[Pin1xBit00] = 0x01U;
         } else
@@ -145,7 +145,7 @@ public:
 
     inline virtual void setLow()
     {
-        if (AState == Stm32::Device::IPin::ActiveState::Normal)
+        if (AState == Stm32::Device::IPin::ActiveStateEnum::Normal)
         {
             mBBInstance->brr[Pin1xBit00] = 0x01U;
         } else
@@ -160,12 +160,12 @@ public:
     }
 };
 
-template<char Letter, size_t Pin, Stm32::Device::IPin::ActiveState AState>
+template<char Letter, size_t Pin, Stm32::Device::IPin::ActiveStateEnum AState>
 const Stm32::System::Utils::ConversionAddressToPointerType< //
         Device::Pin<Letter, Pin, AState>::GpioBaseAddress, GPIO_TypeDef> //
         Device::Pin<Letter, Pin, AState>::mInstance;
 
-template<char Letter, size_t Pin, Stm32::Device::IPin::ActiveState AState>
+template<char Letter, size_t Pin, Stm32::Device::IPin::ActiveStateEnum AState>
 const Stm32::System::Utils::ConversionAddressToPointerType< //
         Device::Pin<Letter, Pin, AState>::GpioBitBandAddress, Stm32f4xx::Device::Inside::Gpio::GpioBitBand_t> //
         Device::Pin<Letter, Pin, AState>::mBBInstance;

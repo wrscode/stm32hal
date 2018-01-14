@@ -15,7 +15,7 @@ namespace Device
 {
 struct IPin
 {
-    enum class Config : std::size_t
+    enum class SettingsEnum : std::size_t
     {
         ModeIn = 0x00000000U,     //
         ModeOut = 0x00000001U,    //
@@ -73,7 +73,7 @@ struct IPin
         PullBit03 = 0x00080000U,  //
     };
 
-    enum class ActiveState
+    enum class ActiveStateEnum
     {
         Normal, Invert
     };
@@ -82,7 +82,7 @@ struct IPin
     {
     }
 
-    virtual IPin* open(const Stm32::Device::IPin::Config, Stm32::System::RetCode::Code&) = 0;
+    virtual IPin* open(const Stm32::Device::IPin::SettingsEnum, Stm32::System::RetCode::Code&) = 0;
     virtual IPin* close(Stm32::System::RetCode::Code&) = 0;
 
     virtual void setState(Stm32::System::State) = 0;
@@ -96,25 +96,25 @@ struct IPin
     }
 };
 
-constexpr IPin::Config operator|(const IPin::Config& lhs, const IPin::Config& rhs)
+constexpr IPin::SettingsEnum operator|(const IPin::SettingsEnum& lhs, const IPin::SettingsEnum& rhs)
 {
-    return static_cast<IPin::Config>( //
-              static_cast<std::underlying_type<IPin::Config>::type>(lhs) //
-            | static_cast<std::underlying_type<IPin::Config>::type>(rhs));
+    return static_cast<IPin::SettingsEnum>( //
+              static_cast<std::underlying_type<IPin::SettingsEnum>::type>(lhs) //
+            | static_cast<std::underlying_type<IPin::SettingsEnum>::type>(rhs));
 }
 
-constexpr IPin::Config operator&(const IPin::Config& lhs, const IPin::Config& rhs)
+constexpr IPin::SettingsEnum operator&(const IPin::SettingsEnum& lhs, const IPin::SettingsEnum& rhs)
 {
-    return static_cast<IPin::Config>( //
-              static_cast<std::underlying_type<IPin::Config>::type>(lhs) //
-            & static_cast<std::underlying_type<IPin::Config>::type>(rhs));
+    return static_cast<IPin::SettingsEnum>( //
+              static_cast<std::underlying_type<IPin::SettingsEnum>::type>(lhs) //
+            & static_cast<std::underlying_type<IPin::SettingsEnum>::type>(rhs));
 }
 
-constexpr bool operator&&(const IPin::Config& lhs, const IPin::Config& rhs)
+constexpr bool operator&&(const IPin::SettingsEnum& lhs, const IPin::SettingsEnum& rhs)
 {
-    return ((static_cast<std::underlying_type<IPin::Config>::type>(lhs) //
-            &  static_cast<std::underlying_type<IPin::Config>::type>(rhs)) //
-            == static_cast<std::underlying_type<IPin::Config>::type>(rhs));
+    return ((static_cast<std::underlying_type<IPin::SettingsEnum>::type>(lhs) //
+            &  static_cast<std::underlying_type<IPin::SettingsEnum>::type>(rhs)) //
+            == static_cast<std::underlying_type<IPin::SettingsEnum>::type>(rhs));
 }
 }  // namespace Device
 }  // namespace Stm32
