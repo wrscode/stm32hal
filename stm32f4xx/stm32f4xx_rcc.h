@@ -10,7 +10,8 @@
 #include "stm32f4xx_bitband.h"
 #include "stm32f4xx_dev_cfg_gpio.h"
 #include "stm32f4xx_dev_cfg_uxart.h"
-#include "stm32_sys.h"
+#include "../stm32/stm32_dev_rcc.h"
+#include "../stm32/stm32_sys.h"
 
 namespace Stm32f4xx
 {
@@ -18,6 +19,12 @@ namespace Device
 {
 namespace Rcc
 {
+/* SysClock ******************************************************************************************************** */
+struct SysClock
+{
+    static std::size_t getFrequency(Stm32::Device::Rcc::ClockType Type, Stm32::System::RetCode::Code& Code);
+};
+
 /* GPIO ************************************************************************************************************ */
 template<char Letter>
 struct Gpio
