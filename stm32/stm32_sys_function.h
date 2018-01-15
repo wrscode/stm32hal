@@ -9,7 +9,7 @@
 
 #include <utility>
 
-namespace stm32
+namespace Stm32
 {
 namespace System
 {
