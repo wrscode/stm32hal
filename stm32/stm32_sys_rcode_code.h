@@ -15,7 +15,12 @@ namespace RetCode
 {
 class Code
 {
+public:
 
+
+    operator bool() {
+        return true;
+    }
 };
 } // namespace RetCode
 } // namespace System
