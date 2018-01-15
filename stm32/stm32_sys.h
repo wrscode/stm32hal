@@ -14,5 +14,6 @@
 #include "stm32_sys_utils.h"
 #include "stm32_sys_types.h"
 #include "stm32_sys_timer.h"
+#include "stm32_sys_function.h"
 
 #endif /* STM32_SYS_H_ */
