@@ -15,5 +15,6 @@
 #include "stm32_sys_types.h"
 #include "stm32_sys_timer.h"
 #include "stm32_sys_function.h"
+#include "stm32_sys_irqservice.h"
 
 #endif /* STM32_SYS_H_ */
