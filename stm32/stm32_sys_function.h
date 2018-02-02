@@ -98,6 +98,7 @@ private:
 
     static RetType DummyFunction(void* Obj, ArgsTypes&&... args)
     {
+        (void)Obj;
         return RetType();
     }
 
