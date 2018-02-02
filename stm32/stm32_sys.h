@@ -17,4 +17,6 @@
 #include "stm32_sys_function.h"
 #include "stm32_sys_irqservice.h"
 
+#define USED(x)     (void)((x))
+
 #endif /* STM32_SYS_H_ */
