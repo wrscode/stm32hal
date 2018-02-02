@@ -8,6 +8,7 @@
 #define STM32_SYS_UTILS_H_
 
 #include <cstdint>
+#include <type_traits>
 
 namespace Stm32
 {
@@ -28,6 +29,28 @@ struct ConversionAddressToPointerType
         return (*reinterpret_cast<PointerType*>(Address));
     }
 };
+
+template<class C>
+struct Singleton
+{
+    inline static C& getInstance(){
+        static_assert(std::is_class<C>::value, "This Singleton template working only with Classes!!!");
+        static C Instance;
+        return Instance;
+    }
+
+    ~Singleton(){}
+
+private:
+    Singleton(){}
+
+    Singleton(const Singleton&) = delete;
+    Singleton(Singleton&&) = delete;
+
+    Singleton& operator=(const Singleton&) = delete;
+    Singleton& operator=(Singleton&&) = delete;
+};
+
 }  // namespace Utils
 }  // namespace System
 }  // namespace stm32
