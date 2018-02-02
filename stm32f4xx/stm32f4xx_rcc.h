@@ -22,7 +22,7 @@ namespace Rcc
 /* SysClock ******************************************************************************************************** */
 struct SysClock
 {
-    static std::size_t getFrequency(Stm32::Device::Rcc::ClockType Type, Stm32::System::RetCode::Code& Code);
+    static std::size_t getFrequency(Stm32::Device::Rcc::ClockType Type, Stm32::System::Status::Code& RCode);
 };
 
 /* GPIO ************************************************************************************************************ */

@@ -82,8 +82,8 @@ struct IPin
     {
     }
 
-    virtual IPin* open(const Stm32::Device::IPin::SettingsEnum, Stm32::System::RetCode::Code&) = 0;
-    virtual IPin* close(Stm32::System::RetCode::Code&) = 0;
+    virtual IPin* open(const Stm32::Device::IPin::SettingsEnum, Stm32::System::Status::Code&) = 0;
+    virtual IPin* close(Stm32::System::Status::Code&) = 0;
 
     virtual void setState(Stm32::System::State) = 0;
     virtual void setHigh() = 0;

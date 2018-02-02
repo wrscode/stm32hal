@@ -69,7 +69,7 @@ public:
         return this;
     }
 
-    virtual Stm32::Device::IPin* open(const Stm32::Device::IPin::SettingsEnum Config, Stm32::System::RetCode::Code& Code)
+    virtual Stm32::Device::IPin* open(const Stm32::Device::IPin::SettingsEnum Config, Stm32::System::Status::Code& Code)
     {
         Rcc::Gpio<Letter>::setClock(Stm32::System::State::Enable);
 
@@ -89,12 +89,14 @@ public:
         mBBInstance->pull[Pin2xBit00] = (Config && Stm32::Device::IPin::SettingsEnum::PullBit00) ? 0x01U : 0x00U;
         mBBInstance->pull[Pin2xBit01] = (Config && Stm32::Device::IPin::SettingsEnum::PullBit01) ? 0x01U : 0x00U;
 
+        Code.reset();
         return this;
     }
 
-    virtual Stm32::Device::IPin* close(Stm32::System::RetCode::Code& Code)
+    virtual Stm32::Device::IPin* close(Stm32::System::Status::Code& Code)
     {
         Rcc::Gpio<Letter>::setClock(Stm32::System::State::Disable);
+        Code.reset();
         return this;
     }
 

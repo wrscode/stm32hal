@@ -13,7 +13,7 @@ namespace Device
 {
 namespace Rcc
 {
-std::size_t SysClock::getFrequency(Stm32::Device::Rcc::ClockType Type, Stm32::System::RetCode::Code& Code)
+std::size_t SysClock::getFrequency(Stm32::Device::Rcc::ClockType Type, Stm32::System::Status::Code& Code)
 {
     typedef Stm32::Device::Rcc::ClockType rClockType;
 
@@ -29,6 +29,7 @@ std::size_t SysClock::getFrequency(Stm32::Device::Rcc::ClockType Type, Stm32::Sy
             return HAL_RCC_GetPCLK2Freq();
 
         default:
+            Code = Stm32::System::Status::MakeStatusCode(Stm32::System::Status::GenericCategory::Enum::WrongArgument);
             return 0U;
     }
 }

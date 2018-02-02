@@ -8,6 +8,7 @@
 #define STM32F4XX_DEV_CFG_UXART_H_
 
 #include "stm32f4xx.h"
+#include "../stm32/stm32_dev_rcc.h"
 
 namespace Stm32f4xx
 {
@@ -25,7 +26,7 @@ struct Structure {
         IrqNumber = 0U, //
         ClockEnableRegAddress = 0U, //
         ClockEnableBitNumber = 0U, //
-        PClkNumber = 0U, //
+        ClockType = 0U, //
     };
 };
 
@@ -38,7 +39,7 @@ struct Structure<1>
         IrqNumber = USART1_IRQn, //
         ClockEnableRegAddress = RCC_BASE + 0x44U,//
         ClockEnableBitNumber = 4U,//
-        PClkNumber = 2, //
+        ClockType = (unsigned int)Stm32::Device::Rcc::ClockType::PCLK2, //
     };
 };
 } // namespace Uxart
